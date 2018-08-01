@@ -61,6 +61,18 @@ class BannerBlock extends FileBlock
         return $this->decodeLinkData($this->getField('CallToActionLink'));
     }
 
+    public function getSummaryData()
+    {
+        $summaryData = [];
+
+        if ($this->File() && $this->File()->exists() && $this->File()->getIsImage()) {
+            $summaryData["fileURL"] = $this->File()->CMSThumbnail()->getURL();
+            $summaryData["fileTitle"] = $this->File()->getTitle();
+        }
+        $summaryData['content'] = $this->dbObject('Content')->Summary(20);
+        return $summaryData;
+    }
+
     /**
      * Add the banner content instead of the image title
      *

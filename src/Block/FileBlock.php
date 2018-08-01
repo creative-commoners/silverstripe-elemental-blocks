@@ -39,6 +39,18 @@ class FileBlock extends BaseElement
         return '';
     }
 
+    public function getSummaryData()
+    {
+        $summaryData = [];
+
+        if ($this->File() && $this->File()->exists() && $this->File()->getIsImage()) {
+            $summaryData["fileURL"] = $this->File()->CMSThumbnail()->getURL();
+            $summaryData["fileTitle"] = $this->File()->getTitle();
+        }
+
+        return $summaryData;
+    }
+
     /**
      * Return a thumbnail of the file, if it's an image. Used in GridField preview summaries.
      *
